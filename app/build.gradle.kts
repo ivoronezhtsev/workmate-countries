@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -57,4 +58,18 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    val roomVersion = "2.8.4"
+    // Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+
+    // Kotlin extensions + Coroutines support
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    // Annotation processor (KSP)
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+
+    val coroutinesVersion = "1.8.1"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}")
 }
