@@ -2,32 +2,29 @@ package com.example.workmatecountries.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.workmatecountries.data.CountriesRepository
-import com.example.workmatecountries.data.Country
+import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CountriesViewModel : ViewModel() {
+class CountriesViewModel(
+    private val getCountries: GetCountriesUseCase
+) : ViewModel() {
 
-    private val repository = CountriesRepository()
-
-    private val _countries = MutableLiveData<List<Country>>()
-    val countries: LiveData<List<Country>> = _countries
-
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _state = MutableStateFlow<CountriesUiState>(CountriesUiState.Loading)
+    val state = _state.asStateFlow()
 
     fun fetchCountries() {
         viewModelScope.launch {
             try {
-                val result = repository.getAllCountries()
-                _countries.postValue(result)
+                val result = getCountries()
+                _state.value = CountriesUiState.Success(result)
             } catch (e: Exception) {
-                _error.postValue(e.message ?: "Unknown Error")
+                _state.value = CountriesUiState.Error(e.message ?: "Unknown Error")
             }
         }
     }
+
     init {
         fetchCountries()
     }

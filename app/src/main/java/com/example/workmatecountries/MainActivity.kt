@@ -10,17 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.workmatecountries.data.CountriesRepository
+import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
 import com.example.workmatecountries.ui.CountriesViewModel
 import com.example.workmatecountries.ui.theme.WorkMateCountriesTheme
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: CountriesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                CountryScreen()
+                CountryScreen(GetCountriesUseCase(CountriesRepository()))
             }
         }
     }

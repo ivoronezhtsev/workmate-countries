@@ -1,6 +1,8 @@
 package com.example.workmatecountries.data
 
-data class Country(
+import com.example.workmatecountries.domain.models.Country
+
+data class CountryData(
     val name: Name,
     val flags: Flags,
     val capital: List<String>?,
@@ -30,3 +32,5 @@ data class Currency(
     val name: String,
     val symbol: String?
 )
+fun CountryData.toDomain(): Country =
+    Country(name.common)
