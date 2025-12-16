@@ -3,7 +3,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,6 +33,7 @@ fun CountryScreen(getCountriesUseCase: GetCountriesUseCase) {
         is CountriesUiState.Loading -> {
             CircularProgressIndicator()
         }
+
         is CountriesUiState.Success -> {
             val countries = (uiState as CountriesUiState.Success).countries
             LazyColumn {
@@ -44,17 +45,17 @@ fun CountryScreen(getCountriesUseCase: GetCountriesUseCase) {
                             .padding(16.dp)
                     )
 
-                    // Добавляем Divider после каждого элемента, кроме последнего
                     if (index < countries.size - 1) {
-                        Divider(
-                            color = Color.Gray,
+                        HorizontalDivider(
+                            modifier = Modifier.padding(horizontal = 16.dp),
                             thickness = 1.dp,
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            color = Color.Gray
                         )
                     }
                 }
             }
         }
+
         is CountriesUiState.Error -> {
             Text(
                 text = (uiState as CountriesUiState.Error).message,
