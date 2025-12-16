@@ -72,4 +72,23 @@ dependencies {
     val coroutinesVersion = "1.8.1"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+
+    // Конвертер JSON (Gson)
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+    // Compose ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Основные Compose библиотеки
+    implementation( "androidx.compose.ui:ui:1.5.0")
+    implementation ("androidx.compose.material3:material3:1.2.0")
+    implementation( "androidx.compose.ui:ui-tooling-preview:1.5.0")
+    debugImplementation( "androidx.compose.ui:ui-tooling:1.5.0")
+
+    // Если используете LiveData с Compose
+    implementation( "androidx.compose.runtime:runtime-livedata:1.5.0")
+
 }
