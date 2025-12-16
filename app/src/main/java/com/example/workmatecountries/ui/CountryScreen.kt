@@ -16,7 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workmatecountries.ui.CountriesViewModel
 
 @Composable
-fun CountryScreen(viewModel: CountriesViewModel = viewModel(), modifier: Modifier = Modifier) {
+fun CountryScreen(modifier: Modifier = Modifier, viewModel: CountriesViewModel = viewModel()) {
     val countries by viewModel.countries.observeAsState(emptyList())
     val error by viewModel.error.observeAsState()
 

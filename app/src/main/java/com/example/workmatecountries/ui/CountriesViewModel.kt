@@ -28,4 +28,7 @@ class CountriesViewModel : ViewModel() {
             }
         }
     }
+    init {
+        fetchCountries()
+    }
 }
