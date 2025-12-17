@@ -1,6 +1,6 @@
 package com.example.workmatecountries.ui
 
-import CountryScreen
+import CountriesScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                CountryScreen(GetCountriesUseCase(CountriesRepository()))
+                CountriesScreen(GetCountriesUseCase(CountriesRepository()))
             }
         }
     }

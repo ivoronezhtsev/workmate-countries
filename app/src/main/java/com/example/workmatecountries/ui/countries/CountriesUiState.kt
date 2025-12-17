@@ -1,4 +1,4 @@
-package com.example.workmatecountries.ui
+package com.example.workmatecountries.ui.countries
 
 import com.example.workmatecountries.domain.models.Country
 

@@ -1,13 +1,11 @@
 import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -23,12 +21,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
-import com.example.workmatecountries.ui.CountriesUiState
-import com.example.workmatecountries.ui.CountriesViewModel
+import com.example.workmatecountries.ui.countries.CountriesUiState
+import com.example.workmatecountries.ui.countries.CountriesViewModel
 import com.example.workmatecountries.ui.CountryDetailsActivity
 
 @Composable
-fun CountryScreen(getCountriesUseCase: GetCountriesUseCase) {
+fun CountriesScreen(getCountriesUseCase: GetCountriesUseCase) {
     val viewModel: CountriesViewModel = viewModel(
         factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
