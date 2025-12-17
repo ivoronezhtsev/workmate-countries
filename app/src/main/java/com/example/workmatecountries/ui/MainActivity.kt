@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 /**
-                 * viewModel selected Создается здесь и передается на два экрана, возможно лучше сделать по другому (через hilt или Navigation Compose)
+                 * TODO viewModel selected Создается здесь и передается на два экрана, возможно лучше сделать по другому (через hilt или Navigation Compose)
                  */
                 val selected: CountryViewModel = viewModel(
                     factory = object : ViewModelProvider.Factory {

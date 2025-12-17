@@ -1,13 +1,12 @@
 package com.example.workmatecountries.ui.details
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -17,70 +16,79 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.workmatecountries.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(onBackClick: () -> Unit, selected: CountryViewModel) {
-
-    val country = selected.selectedCountry.collectAsState().value
+fun DetailsScreen(
+    onBackClick: () -> Unit,
+    viewModel: CountryViewModel,
+) {
+    val country = viewModel.selectedCountry.collectAsState().value
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Детали") },
+                title = { Text(stringResource(R.string.details_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Назад"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 }
             )
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
 
-        ) {
-            country?.let {
-                Text(
-                    text = it.name,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+        country?.let { data ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
 
-                HorizontalDivider(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    thickness = 1.dp,
-                    color = Color.Gray
-                )
+                item {
+                    Text(
+                        text = data.name,
+                        style = MaterialTheme.typography.headlineLarge,
+                        modifier = Modifier.padding(vertical = 12.dp)
+                    )
+                }
 
-                DetailItem(label = stringResource(R.string.continent), value = it.region)
-                DetailItem(
-                    label = stringResource(R.string.population),
-                    value = it.population.toString()
-                )
-                //DetailItem(label = stringResource(R.string.language), value = "language")
-                //DetailItem(label = stringResource(R.string.capital), value = it.region)
-                DetailItem(label = stringResource(R.string.currency), value = "currency")
-                DetailItem(label = stringResource(R.string.other_details), value = "otherDetails")
+                item {
+                    DetailCard(
+                        title = stringResource(R.string.continent),
+                        value = data.region
+                    )
+                }
+
+                item {
+                    DetailCard(
+                        title = stringResource(R.string.population),
+                        value = data.population.toString()
+                    )
+                }
+
+                item {
+                    DetailCard(
+                        title = stringResource(R.string.currency),
+                        value = "currency"
+                    )
+                }
+
+                item {
+                    DetailCard(
+                        title = stringResource(R.string.other_details),
+                        value = "otherDetails"
+                    )
+                }
             }
         }
-    }
-}
-
-@Composable
-fun DetailItem(label: String, value: String) {
-    Column {
-        Text(text = label, style = MaterialTheme.typography.labelMedium)
-        Text(text = value, style = MaterialTheme.typography.bodyLarge)
     }
 }
