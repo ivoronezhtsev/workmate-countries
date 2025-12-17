@@ -1,4 +1,3 @@
-import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,8 +6,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,10 +26,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
 import com.example.workmatecountries.ui.countries.CountriesUiState
 import com.example.workmatecountries.ui.countries.CountriesViewModel
-import com.example.workmatecountries.ui.CountryDetailsActivity
 
+@OptIn(ExperimentalMaterial3Api::class) // Не нравится, но отображается хорошо
 @Composable
-fun CountriesScreen(getCountriesUseCase: GetCountriesUseCase) {
+fun CountriesScreen(
+    getCountriesUseCase: GetCountriesUseCase,
+    onItemClick: () -> Unit
+) {
     val viewModel: CountriesViewModel = viewModel(
         factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -37,52 +43,62 @@ fun CountriesScreen(getCountriesUseCase: GetCountriesUseCase) {
     val uiState by viewModel.state.collectAsState()
     val context = LocalContext.current
 
-    when (uiState) {
-        is CountriesUiState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Countries") }
+            )
         }
-
-        is CountriesUiState.Success -> {
-            val countries = (uiState as CountriesUiState.Success).countries
-
-            LazyColumn {
-                itemsIndexed(countries) { index, country ->
-                    Text(
-                        text = country.name,
-                        modifier = Modifier
-                            .clickable {
-                                val intent =
-                                    Intent(context, CountryDetailsActivity::class.java).apply {
-                                        putExtra("country_name", country.name)
-                                    }
-                                context.startActivity(intent)
-                            }
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    )
-
-                    if (index < countries.size - 1) {
-                        HorizontalDivider(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            thickness = 1.dp,
-                            color = Color.Gray
-                        )
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            when (uiState) {
+                is CountriesUiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
                     }
                 }
-            }
-        }
 
-        is CountriesUiState.Error -> {
-            Text(
-                text = (uiState as CountriesUiState.Error).message,
-                color = Color.Red,
-                modifier = Modifier.padding(16.dp)
-            )
+                is CountriesUiState.Success -> {
+                    val countries = (uiState as CountriesUiState.Success).countries
+
+                    LazyColumn {
+                        itemsIndexed(countries) { index, country ->
+                            Text(
+                                text = country.name,
+                                modifier = Modifier
+                                    .clickable {
+                                        onItemClick()
+                                    }
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            )
+
+                            if (index < countries.size - 1) {
+                                HorizontalDivider(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    thickness = 1.dp,
+                                    color = Color.Gray
+                                )
+                            }
+                        }
+                    }
+                }
+
+                is CountriesUiState.Error -> {
+                    Text(
+                        text = (uiState as CountriesUiState.Error).message,
+                        color = Color.Red,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+            }
         }
     }
 }
