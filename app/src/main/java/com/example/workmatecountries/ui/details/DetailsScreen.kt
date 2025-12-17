@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.workmatecountries.R
@@ -46,12 +48,26 @@ fun DetailsScreen(onBackClick: () -> Unit, selected: CountryViewModel) {
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp)
 
         ) {
             country?.let {
+                Text(
+                    text = it.name,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    thickness = 1.dp,
+                    color = Color.Gray
+                )
+
                 DetailItem(label = stringResource(R.string.continent), value = it.region)
-                DetailItem(label = stringResource(R.string.population), value = it.population.toString())
+                DetailItem(
+                    label = stringResource(R.string.population),
+                    value = it.population.toString()
+                )
                 //DetailItem(label = stringResource(R.string.language), value = "language")
                 //DetailItem(label = stringResource(R.string.capital), value = it.region)
                 DetailItem(label = stringResource(R.string.currency), value = "currency")
@@ -60,6 +76,7 @@ fun DetailsScreen(onBackClick: () -> Unit, selected: CountryViewModel) {
         }
     }
 }
+
 @Composable
 fun DetailItem(label: String, value: String) {
     Column {
