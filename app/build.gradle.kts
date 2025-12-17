@@ -90,5 +90,4 @@ dependencies {
 
     // Если используете LiveData с Compose
     implementation( "androidx.compose.runtime:runtime-livedata:1.5.0")
-
 }

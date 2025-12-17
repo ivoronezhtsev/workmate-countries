@@ -1,4 +1,4 @@
-package com.example.workmatecountries
+package com.example.workmatecountries.ui
 
 import CountryScreen
 import android.os.Bundle
@@ -19,5 +19,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
