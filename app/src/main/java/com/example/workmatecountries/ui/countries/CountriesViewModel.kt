@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CountriesViewModel(
-    private val getCountries: GetCountriesUseCase
+    private val getCountries: GetCountriesUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CountriesUiState>(CountriesUiState.Loading)

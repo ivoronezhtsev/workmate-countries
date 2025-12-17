@@ -32,5 +32,6 @@ data class Currency(
     val name: String,
     val symbol: String?
 )
-fun CountryData.toDomain(): Country =
-    Country(name.common)
+fun CountryData.toDomain(): Country {
+    return Country(name.common, region, population)
+}

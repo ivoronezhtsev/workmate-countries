@@ -26,12 +26,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
 import com.example.workmatecountries.ui.countries.CountriesUiState
 import com.example.workmatecountries.ui.countries.CountriesViewModel
+import com.example.workmatecountries.ui.details.CountryViewModel
 
 @OptIn(ExperimentalMaterial3Api::class) // Не нравится, но отображается хорошо
 @Composable
 fun CountriesScreen(
     getCountriesUseCase: GetCountriesUseCase,
-    onItemClick: () -> Unit
+    onItemClick: () -> Unit,
+    selected: CountryViewModel
 ) {
     val viewModel: CountriesViewModel = viewModel(
         factory = object : ViewModelProvider.Factory {
@@ -74,7 +76,10 @@ fun CountriesScreen(
                                 text = country.name,
                                 modifier = Modifier
                                     .clickable {
+
+                                        selected.selectCountry(country)
                                         onItemClick()
+
                                     }
                                     .fillMaxWidth()
                                     .padding(16.dp)

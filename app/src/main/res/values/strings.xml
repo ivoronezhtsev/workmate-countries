@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WorkMateCountries</string>
+    <string name="details_title">Детали</string>
+    <string name="back">Назад</string>
+    <string name="continent">Континент</string>
+    <string name="population">Население</string>
+    <string name="language">Язык</string>
+    <string name="capital">Столица</string>
+    <string name="currency">Валюта</string>
+    <string name="other_details">Прочее</string>
 </resources>
