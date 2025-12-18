@@ -3,7 +3,6 @@ package com.example.workmatecountries.ui.countries
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
-import com.example.workmatecountries.ui.countries.CountriesUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

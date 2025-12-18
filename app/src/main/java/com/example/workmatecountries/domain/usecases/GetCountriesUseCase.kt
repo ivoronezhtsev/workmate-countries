@@ -14,12 +14,12 @@ class GetCountriesUseCase(
     suspend operator fun invoke(): List<Country> {
         val localData = countriesEntityRepository.getCountries().first()
         if (localData.isNotEmpty()) {
-            return localData.map { Country(it.name, it.region, it.population) }
+            return localData.map { it.toDomain() }
         } else {
             val remoteDto = countriesDtoRepository.getCountries()
             val entities = remoteDto.map { it.toEntity() }
             countriesEntityRepository.saveCountries(entities)
-            return entities.map { it. toDomain()}
+            return entities.map { it.toDomain() }
         }
     }
 }

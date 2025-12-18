@@ -11,7 +11,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,7 +29,7 @@ import com.example.workmatecountries.ui.countries.CountriesUiState
 import com.example.workmatecountries.ui.countries.CountriesViewModel
 import com.example.workmatecountries.ui.details.CountryViewModel
 
-@OptIn(ExperimentalMaterial3Api::class) // Не нравится, но отображается хорошо
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountriesScreen(
     getCountriesUseCase: GetCountriesUseCase,
