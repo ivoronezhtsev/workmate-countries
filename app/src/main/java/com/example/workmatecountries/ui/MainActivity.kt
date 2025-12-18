@@ -11,7 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.workmatecountries.data.CountriesRepository
+import com.example.workmatecountries.data.CountriesDtoRepository
+import com.example.workmatecountries.data.CountriesEntityRepository
 import com.example.workmatecountries.domain.usecases.GetCountriesUseCase
 import com.example.workmatecountries.ui.details.CountryViewModel
 import com.example.workmatecountries.ui.details.DetailsScreen
@@ -26,7 +27,15 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 /**
-                 * TODO viewModel selected Создается здесь и передается на два экрана, возможно лучше сделать по другому (через hilt или Navigation Compose)
+                 * TODO viewModel selected Создается здесь и передается на два экрана, возможно лучше сделать по другому (через hilt или Navigation Compose).
+                 * Решение:
+                 * Экран 1 (Список): Пользователь нажимает на страну.
+                 * Navigation: Срабатывает навигация (это делает View или специальный Router/Coordinator), вы переходите на второй экран, передавая ID страны.
+                 * Экран 2 (Детали):
+                 * ViewModel второго экрана при создании берет этот ID.
+                 * Вызывает GetCountryDetailsUseCase(id).
+                 * UseCase идет в Repository.
+                 * Данные возвращаются и отображаются
                  */
                 val selected: CountryViewModel = viewModel(
                     factory = object : ViewModelProvider.Factory {
@@ -37,7 +46,10 @@ class MainActivity : ComponentActivity() {
                 )
                 NavHost(navController = navController, startDestination = "list") {
                     composable("list") {
-                        CountriesScreen(GetCountriesUseCase(CountriesRepository()), onItemClick = {
+                        CountriesScreen(
+                            GetCountriesUseCase(CountriesDtoRepository(), //TODO Инъекция зависимостей
+                            CountriesEntityRepository(applicationContext)
+                        ), onItemClick = {
                             navController.navigate("details")
                         }, selected)
                     }

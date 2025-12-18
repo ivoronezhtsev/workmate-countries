@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -58,36 +58,20 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    val roomVersion = "2.8.4"
-    // Room
-    implementation("androidx.room:room-runtime:$roomVersion")
-
-    // Kotlin extensions + Coroutines support
-    implementation("androidx.room:room-ktx:$roomVersion")
-
-    // Annotation processor (KSP)
-    ksp("androidx.room:room-compiler:$roomVersion")
-
-
-    val coroutinesVersion = "1.8.1"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}")
-
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-
-    // Конвертер JSON (Gson)
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-
-    // Compose ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-
-    // Основные Compose библиотеки
-    implementation( "androidx.compose.ui:ui:1.5.0")
-    implementation ("androidx.compose.material3:material3:1.2.0")
-    implementation( "androidx.compose.ui:ui-tooling-preview:1.5.0")
-    debugImplementation( "androidx.compose.ui:ui-tooling:1.5.0")
-
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

@@ -1,7 +1,7 @@
 package com.example.workmatecountries.data
 
 
-class CountriesRepository {
+class CountriesDtoRepository {
     private val api = RetrofitInstance.api
 
     suspend fun getCountries(): List<CountryData> {

@@ -75,7 +75,7 @@ fun DetailsScreen(
                     )
                 }
 
-                item {
+                /*item {
                     DetailCard(
                         title = stringResource(R.string.currency),
                         value = "currency"
@@ -87,7 +87,7 @@ fun DetailsScreen(
                         title = stringResource(R.string.other_details),
                         value = "otherDetails"
                     )
-                }
+                }*/
             }
         }
     }

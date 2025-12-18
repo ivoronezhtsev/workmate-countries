@@ -1,6 +1,7 @@
 package com.example.workmatecountries.data
 
 import com.example.workmatecountries.domain.models.Country
+import java.util.UUID
 
 data class CountryData(
     val name: Name,
@@ -34,4 +35,8 @@ data class Currency(
 )
 fun CountryData.toDomain(): Country {
     return Country(name.common, region, population)
+}
+
+fun CountryData.toEntity(): CountryEntity {
+    return CountryEntity(UUID.randomUUID().toString(), name.common, region, population)
 }
