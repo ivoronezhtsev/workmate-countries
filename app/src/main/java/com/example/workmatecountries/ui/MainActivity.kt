@@ -26,17 +26,6 @@ class MainActivity : ComponentActivity() {
             MaterialTheme {
                 val navController = rememberNavController()
 
-                /**
-                 * TODO viewModel selected Создается здесь и передается на два экрана, возможно лучше сделать по другому (через hilt или Navigation Compose).
-                 * Решение:
-                 * Экран 1 (Список): Пользователь нажимает на страну.
-                 * Navigation: Срабатывает навигация (это делает View или специальный Router/Coordinator), вы переходите на второй экран, передавая ID страны.
-                 * Экран 2 (Детали):
-                 * ViewModel второго экрана при создании берет этот ID.
-                 * Вызывает GetCountryDetailsUseCase(id).
-                 * UseCase идет в Repository.
-                 * Данные возвращаются и отображаются
-                 */
                 val selected: CountryViewModel = viewModel(
                     factory = object : ViewModelProvider.Factory {
                         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -47,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = "list") {
                     composable("list") {
                         CountriesScreen(
-                            GetCountriesUseCase(CountriesDtoRepository(), //TODO Инъекция зависимостей
+                            GetCountriesUseCase(CountriesDtoRepository(),
                             CountriesEntityRepository(applicationContext)
                         ), onItemClick = {
                             navController.navigate("details")
