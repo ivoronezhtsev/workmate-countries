@@ -1,4 +1,4 @@
-package com.example.workmatecountries
+package ru.workmate.countries
 
 import org.junit.Test
 

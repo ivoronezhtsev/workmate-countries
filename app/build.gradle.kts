@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.workmatecountries"
+    namespace = "ru.workmate.countries"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.workmatecountries"
+        applicationId = "ru.workmate.countries"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
